@@ -1,5 +1,5 @@
 async function get() {
-
+  const result = 
 }
 
 export {
