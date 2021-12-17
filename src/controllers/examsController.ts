@@ -7,14 +7,14 @@ import NotFound from '../errors/NotFound';
 
 async function postExam(req: Request, res: Response, next: NextFunction) {
   const {
-    period,
+    name,
     category,
     subject,
     professor,
     link,
   } = req.body;
 
-  if (!period || !category || !subject || !professor || !link) return res.status(HttpStatusCode.BAD_REQUEST);
+  if (!name || !category || !subject || !professor || !link) return res.status(HttpStatusCode.BAD_REQUEST);
 
   try {
     await examsService.post(req.body);
@@ -23,6 +23,7 @@ async function postExam(req: Request, res: Response, next: NextFunction) {
     if (error instanceof BadRequest) return res.status(HttpStatusCode.BAD_REQUEST).send(error.message);
     if (error instanceof Conflict) return res.status(HttpStatusCode.CONFLICT).send(error.message);
     if (error instanceof NotFound) return res.status(HttpStatusCode.NOT_FOUND).send(error.message);
+    next(error);
   }
 }
 
