@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('exams')
-export default class Exams {
+@Entity('periods')
+export default class Periods {
   @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
-    category: string;
+    period: string;
 }

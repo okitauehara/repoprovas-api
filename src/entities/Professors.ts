@@ -1,7 +1,6 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn,
+  Entity, PrimaryGeneratedColumn, Column,
 } from 'typeorm';
-import Subjects from './Subjects';
 
 @Entity('professors')
 export default class Professors {
@@ -10,8 +9,4 @@ export default class Professors {
 
   @Column()
     professor: string;
-
-  @OneToOne(() => Subjects)
-  @JoinColumn({ name: 'subject_id' })
-    subject: Subjects;
 }
