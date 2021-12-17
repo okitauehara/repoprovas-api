@@ -1,10 +1,8 @@
 import { getRepository } from 'typeorm';
 import Categories from '../entities/Categories';
-import NotFound from '../errors/NotFound';
 
-async function get() {
+async function get(): Promise<Categories[]> {
   const result = await getRepository(Categories).find();
-  if (!result.length) throw new NotFound('Categories not found');
   return result;
 }
 
