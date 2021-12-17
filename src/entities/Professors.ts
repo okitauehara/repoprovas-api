@@ -11,7 +11,7 @@ export default class Professors {
   @Column()
     professor: string;
 
-  @OneToOne(() => Subjects, { eager: true })
+  @OneToOne(() => Subjects)
   @JoinColumn({ name: 'subject_id' })
     subject: Subjects;
 }
