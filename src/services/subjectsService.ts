@@ -8,7 +8,9 @@ async function get() {
 }
 
 async function getByPeriod() {
-  const result = await getRepository(Periods).find();
+  const result = await getRepository(Periods).find({
+    relations: ['subjects'],
+  });
   return result;
 }
 

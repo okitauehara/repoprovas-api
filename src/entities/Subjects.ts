@@ -20,7 +20,7 @@ export default class Subjects {
   @JoinColumn({ name: 'period_id' })
     period: Periods;
 
-  @ManyToMany(() => Professors, (professor) => professor.id, { eager: true })
+  @ManyToMany(() => Professors, (professor) => professor.id)
   @JoinTable({
     name: 'professors_subjects',
     joinColumn: {

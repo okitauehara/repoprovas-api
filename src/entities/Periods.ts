@@ -11,6 +11,6 @@ export default class Periods {
   @Column()
     period: string;
 
-  @OneToMany(() => Subjects, (subject) => subject.period, { eager: true })
+  @OneToMany(() => Subjects, (subject) => subject.period)
     subjects: Subjects;
 }
