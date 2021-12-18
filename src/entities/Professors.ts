@@ -12,5 +12,5 @@ export default class Professors {
     professor: string;
 
   @OneToMany(() => Exams, (exam) => exam.professor)
-    exam: Exams;
+    exams: Exams;
 }
