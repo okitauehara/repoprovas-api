@@ -1,32 +1,29 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
-import faker from 'faker';
-
 import app, { init } from '../../src/app';
-
-const fakeProfessorId = faker.random.arrayElement(['1', '2', '3', '4', '5']);
+import { createSubject } from '../factories/subjectFactory';
+import { clearDatabase } from '../utils/database';
 
 beforeAll(async () => {
   await init();
 });
 
 afterAll(async () => {
+  await clearDatabase();
   await getConnection().close();
 });
 
 describe('GET /professors', () => {
   it('should return status 200 and an array containing professors if the request was successfull', async () => {
-    const response = await supertest(app).get(`/professors/${fakeProfessorId}`);
+    const fakeSubject = await createSubject();
+    const response = await supertest(app).get(`/professors/${fakeSubject.id}`);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
       expect.objectContaining({
         id: expect.any(Number),
-        professors: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(Number),
-            professor: expect.any(String),
-          }),
-        ]),
+        professors: expect.any(Array),
+        period_id: expect.any(Number),
+        subject: expect.any(String),
       }),
     );
   });
