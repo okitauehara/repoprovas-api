@@ -10,6 +10,9 @@ async function get() {
 async function getByPeriod() {
   const result = await getRepository(Periods).find({
     relations: ['subjects'],
+    order: {
+      id: 'ASC',
+    },
   });
   return result;
 }
