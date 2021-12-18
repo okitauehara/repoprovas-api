@@ -2,9 +2,8 @@ import { getRepository } from 'typeorm';
 import faker from 'faker';
 import { createCategory } from './categoryFactory';
 import { createProfessor } from './professorFactory';
+import { createSubject } from './subjectFactory';
 import Names from '../../src/entities/Names';
-import Subjects from '../../src/entities/Subjects';
-import Periods from '../../src/entities/Periods';
 
 async function createName() {
   const fakeName = getRepository(Names).create({
@@ -13,27 +12,6 @@ async function createName() {
   });
   await getRepository(Names).save(fakeName);
   return fakeName;
-}
-
-async function createPeriod() {
-  const fakePeriod = getRepository(Periods).create({
-    id: faker.datatype.number(),
-    period: faker.lorem.word(),
-  });
-  await getRepository(Periods).save(fakePeriod);
-  return fakePeriod;
-}
-
-async function createSubject() {
-  const fakePeriod = await createPeriod();
-
-  const fakeSubject = getRepository(Subjects).create({
-    id: faker.datatype.number(),
-    subject: faker.lorem.word(),
-    period_id: fakePeriod.id,
-  });
-  await getRepository(Subjects).save(fakeSubject);
-  return fakeSubject;
 }
 
 export async function createExam() {
