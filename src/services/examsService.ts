@@ -1,6 +1,9 @@
 import { getRepository } from 'typeorm';
+import Categories from '../entities/Categories';
 import Exams from '../entities/Exams';
 import Names from '../entities/Names';
+import Professors from '../entities/Professors';
+import Subjects from '../entities/Subjects';
 import BadRequest from '../errors/BadRequest';
 import Conflict from '../errors/Conflict';
 import NotFound from '../errors/NotFound';
@@ -39,6 +42,21 @@ async function post(exam: any) {
     nameId = Number(checkName[0].id);
   }
 
+  const checkCategory = await getRepository(Categories).find({
+    id: category,
+  });
+  if (!checkCategory.length) throw new NotFound('Invalid category');
+
+  const checkSubject = await getRepository(Subjects).find({
+    id: subject,
+  });
+  if (!checkSubject.length) throw new NotFound('Invalid subject');
+
+  const checkProfessor = await getRepository(Professors).find({
+    id: professor,
+  });
+  if (!checkProfessor.length) throw new NotFound('Invalid professor');
+
   const result = await getRepository(Exams).insert({
     name_id: nameId,
     category_id: category,
@@ -46,7 +64,6 @@ async function post(exam: any) {
     professor_id: professor,
     url,
   });
-  if (!result) throw new NotFound('Invalid category, subject or professor');
   return result;
 }
 

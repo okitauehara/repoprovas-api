@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
-import { createBadRequest, createExam } from '../factories/examFactory';
+import { createBadRequest, createExam, createNotFoundExam } from '../factories/examFactory';
 import { clearDatabase } from '../utils/database';
 
 beforeAll(async () => {
@@ -24,5 +24,11 @@ describe('POST /exams', () => {
     const fakeExam = await createBadRequest();
     const response = await supertest(app).post('/exams').send(fakeExam);
     expect(response.status).toBe(400);
+  });
+
+  it('should return status 404 if the request body contains not found items', async () => {
+    const fakeExam = await createNotFoundExam();
+    const response = await supertest(app).post('/exams').send(fakeExam);
+    expect(response.status).toBe(404);
   });
 });

@@ -47,7 +47,24 @@ async function createBadRequest() {
   return fakeExam;
 }
 
+async function createNotFoundExam() {
+  const fakeName = await createName();
+  const fakeSubject = await createSubject();
+  const fakeProfessor = await createProfessor();
+
+  const fakeExam = {
+    name: fakeName.name,
+    category: faker.datatype.number(),
+    subject: fakeSubject.id,
+    professor: fakeProfessor.id,
+    url: faker.internet.url(),
+  };
+
+  return fakeExam;
+}
+
 export {
   createExam,
   createBadRequest,
+  createNotFoundExam,
 };
