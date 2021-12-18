@@ -11,6 +11,11 @@ async function getSubjects(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function getSubjectsByPeriod(req: Request, res: Response, next: NextFunction) {
+
+}
+
 export {
   getSubjects,
+  getSubjectsByPeriod,
 };
