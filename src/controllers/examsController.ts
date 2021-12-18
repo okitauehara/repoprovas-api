@@ -6,16 +6,6 @@ import Conflict from '../errors/Conflict';
 import NotFound from '../errors/NotFound';
 
 async function postExam(req: Request, res: Response, next: NextFunction) {
-  const {
-    name,
-    category,
-    subject,
-    professor,
-    link,
-  } = req.body;
-
-  if (!name || !category || !subject || !professor || !link) return res.status(HttpStatusCode.BAD_REQUEST);
-
   try {
     await examsService.post(req.body);
     return res.sendStatus(HttpStatusCode.CREATED);
