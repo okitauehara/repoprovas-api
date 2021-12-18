@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany, JoinTable, OneToMany,
+} from 'typeorm';
+import Exams from './Exams';
+import Periods from './Periods';
+import Professors from './Professors';
 
 @Entity('subjects')
 export default class Subjects {
@@ -7,4 +12,27 @@ export default class Subjects {
 
   @Column()
     subject: string;
+
+  @Column()
+    period_id: number;
+
+  @OneToOne(() => Periods)
+    period: Periods;
+
+  @ManyToMany(() => Professors, (professor) => professor.id, { eager: true })
+  @JoinTable({
+    name: 'professors_subjects',
+    joinColumn: {
+      name: 'subject_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'professor_id',
+      referencedColumnName: 'id',
+    },
+  })
+    professors: Professors[];
+
+  @OneToMany(() => Exams, (exam) => exam.subject)
+    exam: Exams;
 }

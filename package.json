@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test npx jest -i",
+    "test:watch": "NODE_ENV=test npx jest -i --watch",
     "build": "NODE_ENV=prod npx tsc --outDir dist",
     "start": "NODE_ENV=prod NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/server.js",
     "start:dev": "NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",

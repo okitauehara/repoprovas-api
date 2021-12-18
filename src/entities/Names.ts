@@ -3,14 +3,14 @@ import {
 } from 'typeorm';
 import Exams from './Exams';
 
-@Entity('categories')
-export default class Categories {
+@Entity('names')
+export default class Names {
   @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
-    category: string;
+    name: string;
 
-  @OneToMany(() => Exams, (exam) => exam.category)
+  @OneToMany(() => Exams, (exam) => exam.name)
     exam: Exams;
 }
