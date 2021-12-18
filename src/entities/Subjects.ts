@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany, JoinTable, OneToMany,
+  Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, ManyToOne, JoinColumn,
 } from 'typeorm';
 import Exams from './Exams';
 import Periods from './Periods';
@@ -16,7 +16,8 @@ export default class Subjects {
   @Column()
     period_id: number;
 
-  @OneToOne(() => Periods)
+  @ManyToOne(() => Periods, (period) => period.id)
+  @JoinColumn({ name: 'period_id' })
     period: Periods;
 
   @ManyToMany(() => Professors, (professor) => professor.id, { eager: true })
