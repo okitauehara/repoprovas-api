@@ -19,12 +19,15 @@ describe('GET /professors', () => {
     const response = await supertest(app).get(`/professors/${fakeProfessorId}`);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          id: expect.any(Number),
-          professor: expect.any(String),
-        }),
-      ]),
+      expect.objectContaining({
+        id: expect.any(Number),
+        professors: expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            professor: expect.any(String),
+          }),
+        ]),
+      }),
     );
   });
 
