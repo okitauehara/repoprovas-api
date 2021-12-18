@@ -15,6 +15,11 @@ async function getProfessorsById(req: Request, res: Response, next: NextFunction
   }
 }
 
+async function getProfessors(req: Request, res: Response, next: NextFunction) {
+
+}
+
 export {
   getProfessorsById,
+  getProfessors,
 };
