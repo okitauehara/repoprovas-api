@@ -6,6 +6,11 @@ async function get() {
   return result;
 }
 
+async function getByPeriod() {
+
+}
+
 export {
   get,
+  getByPeriod,
 };
