@@ -43,11 +43,11 @@ CREATE TABLE "exams" (
   OIDS=FALSE
 );
 
-CREATE TABLE "professsors_subjects" (
+CREATE TABLE "professors_subjects" (
 	"id" serial NOT NULL,
 	"professor_id" integer NOT NULL,
 	"subject_id" integer NOT NULL,
-	CONSTRAINT "professsors_subjects_pk" PRIMARY KEY ("id")
+	CONSTRAINT "professors_subjects_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -68,8 +68,8 @@ ALTER TABLE "exams" ADD CONSTRAINT "exams_fk1" FOREIGN KEY ("category_id") REFER
 ALTER TABLE "exams" ADD CONSTRAINT "exams_fk2" FOREIGN KEY ("professor_id") REFERENCES "professors"("id");
 ALTER TABLE "exams" ADD CONSTRAINT "exams_fk3" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id");
 
-ALTER TABLE "professsors_subjects" ADD CONSTRAINT "professsors_subjects_fk0" FOREIGN KEY ("professor_id") REFERENCES "professors"("id");
-ALTER TABLE "professsors_subjects" ADD CONSTRAINT "professsors_subjects_fk1" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id");
+ALTER TABLE "professors_subjects" ADD CONSTRAINT "professors_subjects_fk0" FOREIGN KEY ("professor_id") REFERENCES "professors"("id");
+ALTER TABLE "professors_subjects" ADD CONSTRAINT "professors_subjects_fk1" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id");
 
 
 INSERT INTO categories (category) VALUES ('P1');
