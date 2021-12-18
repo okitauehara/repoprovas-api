@@ -12,7 +12,7 @@ async function createPeriod() {
   return fakePeriod;
 }
 
-export async function createSubject() {
+async function createSubject() {
   const fakePeriod = await createPeriod();
 
   const fakeSubject = getRepository(Subjects).create({
@@ -23,3 +23,7 @@ export async function createSubject() {
   await getRepository(Subjects).save(fakeSubject);
   return fakeSubject;
 }
+
+export {
+  createSubject,
+};

@@ -14,7 +14,7 @@ async function createName() {
   return fakeName;
 }
 
-export async function createExam() {
+async function createExam() {
   const fakeName = await createName();
   const fakeCategory = await createCategory();
   const fakeSubject = await createSubject();
@@ -30,3 +30,24 @@ export async function createExam() {
 
   return fakeExam;
 }
+
+async function createBadRequest() {
+  const fakeName = await createName();
+  const fakeCategory = await createCategory();
+  const fakeSubject = await createSubject();
+  const fakeProfessor = await createProfessor();
+
+  const fakeExam = {
+    name: fakeName.name,
+    category: fakeCategory.id,
+    subject: fakeSubject.id,
+    professor: fakeProfessor.id,
+  };
+
+  return fakeExam;
+}
+
+export {
+  createExam,
+  createBadRequest,
+};
