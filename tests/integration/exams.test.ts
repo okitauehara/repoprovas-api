@@ -1,7 +1,9 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
-import { createBadRequest, createExam, createNotFoundExam } from '../factories/examFactory';
+import {
+  createBadRequest, createConflictExam, createExam, createNotFoundExam,
+} from '../factories/examFactory';
 import { clearDatabase } from '../utils/database';
 
 beforeAll(async () => {
@@ -30,5 +32,11 @@ describe('POST /exams', () => {
     const fakeExam = await createNotFoundExam();
     const response = await supertest(app).post('/exams').send(fakeExam);
     expect(response.status).toBe(404);
+  });
+
+  it('should return status 409 if the exam url already exists', async () => {
+    const fakeExam = await createConflictExam();
+    const response = await supertest(app).post('/exams').send(fakeExam);
+    expect(response.status).toBe(409);
   });
 });
