@@ -13,6 +13,9 @@ export default class Subjects {
   @Column()
     subject: string;
 
+  @Column()
+    period_id: number;
+
   @OneToOne(() => Periods)
     period: Periods;
 
