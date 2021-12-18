@@ -1,4 +1,5 @@
 import { getRepository } from 'typeorm';
+import Periods from '../entities/Periods';
 import Subjects from '../entities/Subjects';
 
 async function get() {
@@ -7,7 +8,8 @@ async function get() {
 }
 
 async function getByPeriod() {
-
+  const result = await getRepository(Periods).find();
+  return result;
 }
 
 export {
