@@ -26,7 +26,7 @@ export default class Exams {
   @Column()
     url: string;
 
-  @ManyToOne(() => Names, (name) => name.id)
+  @ManyToOne(() => Names, (name) => name.id, { eager: true })
   @JoinColumn({ name: 'name_id' })
     name: Names;
 
