@@ -68,7 +68,12 @@ async function post(exam: any) {
 }
 
 async function get(examId: number) {
-
+  const result = await getRepository(Exams).find({
+    where: { id: examId },
+    relations: ['name'],
+  });
+  if (!result.length) throw new NotFound('Invalid exam id');
+  return result;
 }
 
 export {
