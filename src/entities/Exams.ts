@@ -38,7 +38,7 @@ export default class Exams {
   @JoinColumn({ name: 'subject_id' })
     subject: Subjects;
 
-  @ManyToOne(() => Professors, (professor) => professor.id)
+  @ManyToOne(() => Professors, (professor) => professor.id, { eager: true })
   @JoinColumn({ name: 'professor_id' })
     professor: Professors;
 }

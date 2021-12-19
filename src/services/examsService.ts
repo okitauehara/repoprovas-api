@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { getRepository } from 'typeorm';
 import Categories from '../entities/Categories';
 import Exams from '../entities/Exams';
@@ -67,13 +68,51 @@ async function post(exam: any) {
   return result;
 }
 
-async function get(disciplineId: number) {
-  const result = await getRepository(Subjects).find({
-    where: { id: disciplineId },
-    relations: ['exams'],
+async function get(subjectId: number) {
+  const subject = await getRepository(Subjects).find({
+    where: { id: subjectId },
   });
-  if (!result.length) throw new NotFound('Invalid exam id');
-  return result[0];
+  const p1 = await getRepository(Exams).find({
+    where: {
+      subject_id: subjectId,
+      category_id: 1,
+    },
+  });
+  const p2 = await getRepository(Exams).find({
+    where: {
+      subject_id: subjectId,
+      category_id: 2,
+    },
+  });
+  const p3 = await getRepository(Exams).find({
+    where: {
+      subject_id: subjectId,
+      category_id: 3,
+    },
+  });
+  const second = await getRepository(Exams).find({
+    where: {
+      subject_id: subjectId,
+      category_id: 4,
+    },
+  });
+  const others = await getRepository(Exams).find({
+    where: {
+      subject_id: subjectId,
+      category_id: 5,
+    },
+  });
+
+  const result = {
+    subject: subject[0].subject,
+    p1: p1.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    p2: p2.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    p3: p3.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    second: second.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    others: others.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+  };
+
+  return result;
 }
 
 export {
