@@ -3,7 +3,7 @@ import faker from 'faker';
 import Periods from '../../src/entities/Periods';
 import Subjects from '../../src/entities/Subjects';
 
-async function createPeriod() {
+async function createPeriod(): Promise<Periods> {
   const fakePeriod = getRepository(Periods).create({
     id: faker.datatype.number(),
     period: faker.lorem.word(),
@@ -12,7 +12,7 @@ async function createPeriod() {
   return fakePeriod;
 }
 
-async function createSubject() {
+async function createSubject(): Promise<Subjects> {
   const fakePeriod = await createPeriod();
 
   const fakeSubject = getRepository(Subjects).create({
