@@ -2,8 +2,9 @@ import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
 import {
-  createBadRequest, createConflictExam, createExam, createExamBySubjectId, createNotFoundExam,
+  createBadRequest, createConflictExam, createExam, createExamByProfessorId, createExamBySubjectId, createNotFoundExam,
 } from '../factories/examFactory';
+import { createProfessor } from '../factories/professorFactory';
 import { createSubject } from '../factories/subjectFactory';
 import { clearDatabase } from '../utils/database';
 
@@ -42,19 +43,36 @@ describe('POST /exams', () => {
   });
 });
 
-describe('GET /exams/:disciplineId', () => {
+describe('GET /exams/by-subject/:subjectId', () => {
   it('should return status 200 and an array containing subject and exams', async () => {
     const fakeSubject = await createSubject();
     await createExamBySubjectId(fakeSubject);
-    const response = await supertest(app).get(`/exams/${fakeSubject.id}`);
+    const response = await supertest(app).get(`/exams/by-subject/${fakeSubject.id}`);
     expect(response.status).toBe(200);
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        id: expect.any(Number),
-        subject: expect.any(String),
-        period_id: expect.any(Number),
-        exams: expect.any(Array),
-      }),
-    );
+    expect(response.body).toEqual({
+      subject: expect.any(String),
+      p1: expect.any(Array),
+      p2: expect.any(Array),
+      p3: expect.any(Array),
+      second: expect.any(Array),
+      others: expect.any(Array),
+    });
+  });
+});
+
+describe('GET /exams/by-professor/:professorId', () => {
+  it('should return status 200 and an array containing subject and exams', async () => {
+    const fakeProfessor = await createProfessor();
+    await createExamByProfessorId(fakeProfessor);
+    const response = await supertest(app).get(`/exams/by-professor/${fakeProfessor.id}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      professor: expect.any(String),
+      p1: expect.any(Array),
+      p2: expect.any(Array),
+      p3: expect.any(Array),
+      second: expect.any(Array),
+      others: expect.any(Array),
+    });
   });
 });
