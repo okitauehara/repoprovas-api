@@ -57,9 +57,4 @@ describe('GET /exams/:disciplineId', () => {
       }),
     );
   });
-
-  it('should return status 404 if the discipline id did not return any result', async () => {
-    const response = await supertest(app).get('/exams/999');
-    expect(response.status).toBe(404);
-  });
 });
