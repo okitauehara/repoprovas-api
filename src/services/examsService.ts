@@ -105,11 +105,11 @@ async function get(subjectId: number) {
 
   const result = {
     subject: subject[0].subject,
-    p1: p1.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    p2: p2.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    p3: p3.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    second: second.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    others: others.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    p1: p1.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p2: p2.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p3: p3.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    second: second.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    others: others.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
   };
 
   return result;
