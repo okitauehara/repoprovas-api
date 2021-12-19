@@ -2,8 +2,9 @@ import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
 import {
-  createBadRequest, createConflictExam, createExam, createNotFoundExam,
+  createBadRequest, createConflictExam, createExam, createExamBySubjectId, createNotFoundExam,
 } from '../factories/examFactory';
+import { createSubject } from '../factories/subjectFactory';
 import { clearDatabase } from '../utils/database';
 
 beforeAll(async () => {
@@ -38,5 +39,22 @@ describe('POST /exams', () => {
     const fakeExam = await createConflictExam();
     const response = await supertest(app).post('/exams').send(fakeExam);
     expect(response.status).toBe(409);
+  });
+});
+
+describe('GET /exams/:disciplineId', () => {
+  it('should return status 200 and an array containing subject and exams', async () => {
+    const fakeSubject = await createSubject();
+    await createExamBySubjectId(fakeSubject);
+    const response = await supertest(app).get(`/exams/${fakeSubject.id}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        subject: expect.any(String),
+        period_id: expect.any(Number),
+        exams: expect.any(Array),
+      }),
+    );
   });
 });

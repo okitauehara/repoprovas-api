@@ -73,7 +73,7 @@ async function get(disciplineId: number) {
     relations: ['exams'],
   });
   if (!result.length) throw new NotFound('Invalid exam id');
-  return result;
+  return result[0];
 }
 
 export {
