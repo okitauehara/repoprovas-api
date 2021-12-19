@@ -98,10 +98,26 @@ async function createExamBySubjectId(fakeSubject: any) {
   return fakeExam;
 }
 
+async function createExamByProfessorId(fakeProfessor: any) {
+  const fakeName = await createName();
+  const fakeCategory = await createCategory();
+  const fakeSubject = await createSubject();
+
+  const fakeExam = {
+    name: fakeName.name,
+    category: fakeCategory.id,
+    subject: fakeSubject.id,
+    professor: fakeProfessor.id,
+  };
+
+  return fakeExam;
+}
+
 export {
   createExam,
   createBadRequest,
   createNotFoundExam,
   createConflictExam,
   createExamBySubjectId,
+  createExamByProfessorId,
 };

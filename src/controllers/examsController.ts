@@ -17,11 +17,22 @@ async function postExam(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function getExamById(req: Request, res: Response, next: NextFunction) {
+async function getExamBySubjectId(req: Request, res: Response, next: NextFunction) {
   const subjectId = Number(req.params.subjectId);
 
   try {
-    const result = await examsService.get(subjectId);
+    const result = await examsService.getBySubject(subjectId);
+    return res.status(HttpStatusCode.OK).send(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getExamByProfessorId(req: Request, res: Response, next: NextFunction) {
+  const professorId = Number(req.params.professorId);
+
+  try {
+    const result = await examsService.getByProfessor(professorId);
     return res.status(HttpStatusCode.OK).send(result);
   } catch (error) {
     next(error);
@@ -30,5 +41,6 @@ async function getExamById(req: Request, res: Response, next: NextFunction) {
 
 export {
   postExam,
-  getExamById,
+  getExamBySubjectId,
+  getExamByProfessorId,
 };

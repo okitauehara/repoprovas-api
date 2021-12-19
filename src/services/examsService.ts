@@ -68,7 +68,7 @@ async function post(exam: any) {
   return result;
 }
 
-async function get(subjectId: number) {
+async function getBySubject(subjectId: number) {
   const subject = await getRepository(Subjects).find({
     where: { id: subjectId },
   });
@@ -77,39 +77,96 @@ async function get(subjectId: number) {
       subject_id: subjectId,
       category_id: 1,
     },
+    relations: ['professor'],
   });
   const p2 = await getRepository(Exams).find({
     where: {
       subject_id: subjectId,
       category_id: 2,
     },
+    relations: ['professor'],
   });
   const p3 = await getRepository(Exams).find({
     where: {
       subject_id: subjectId,
       category_id: 3,
     },
+    relations: ['professor'],
   });
   const second = await getRepository(Exams).find({
     where: {
       subject_id: subjectId,
       category_id: 4,
     },
+    relations: ['professor'],
   });
   const others = await getRepository(Exams).find({
     where: {
       subject_id: subjectId,
       category_id: 5,
     },
+    relations: ['professor'],
   });
 
   const result = {
     subject: subject[0].subject,
-    p1: p1.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    p2: p2.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    p3: p3.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    second: second.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
-    others: others.sort((a, b) => (a.name.name < b.name.name ? -1 : a.name.name > b.name.name ? 1 : 0)),
+    p1: p1.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p2: p2.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p3: p3.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    second: second.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    others: others.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+  };
+
+  return result;
+}
+
+async function getByProfessor(professorId: number) {
+  const professor = await getRepository(Professors).find({
+    where: { id: professorId },
+  });
+  const p1 = await getRepository(Exams).find({
+    where: {
+      professor_id: professorId,
+      category_id: 1,
+    },
+    relations: ['subject'],
+  });
+  const p2 = await getRepository(Exams).find({
+    where: {
+      professor_id: professorId,
+      category_id: 2,
+    },
+    relations: ['subject'],
+  });
+  const p3 = await getRepository(Exams).find({
+    where: {
+      professor_id: professorId,
+      category_id: 3,
+    },
+    relations: ['subject'],
+  });
+  const second = await getRepository(Exams).find({
+    where: {
+      professor_id: professorId,
+      category_id: 4,
+    },
+    relations: ['subject'],
+  });
+  const others = await getRepository(Exams).find({
+    where: {
+      professor_id: professorId,
+      category_id: 5,
+    },
+    relations: ['subject'],
+  });
+
+  const result = {
+    professor: professor[0].professor,
+    p1: p1.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p2: p2.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    p3: p3.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    second: second.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
+    others: others.sort((a, b) => (a.name.name > b.name.name ? -1 : a.name.name < b.name.name ? 1 : 0)),
   };
 
   return result;
@@ -117,5 +174,6 @@ async function get(subjectId: number) {
 
 export {
   post,
-  get,
+  getBySubject,
+  getByProfessor,
 };
