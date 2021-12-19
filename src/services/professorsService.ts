@@ -1,4 +1,5 @@
 import { getRepository } from 'typeorm';
+import Professors from '../entities/Professors';
 import Subjects from '../entities/Subjects';
 import NotFound from '../errors/NotFound';
 
@@ -11,6 +12,17 @@ async function getBySubjectId(subjectId: number) {
   return result[0];
 }
 
+async function get() {
+  const result = await getRepository(Professors).find({
+    relations: ['exams'],
+    order: {
+      professor: 'ASC',
+    },
+  });
+  return result;
+}
+
 export {
   getBySubjectId,
+  get,
 };

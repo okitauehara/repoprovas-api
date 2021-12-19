@@ -15,6 +15,16 @@ async function getProfessorsById(req: Request, res: Response, next: NextFunction
   }
 }
 
+async function getProfessors(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await professorsService.get();
+    return res.status(HttpStatusCode.OK).send(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export {
   getProfessorsById,
+  getProfessors,
 };
