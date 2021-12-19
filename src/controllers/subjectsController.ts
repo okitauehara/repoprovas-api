@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpStatusCode } from '../enums/httpStatusCode';
 import * as subjectsService from '../services/subjectsService';
 
-async function getSubjects(req: Request, res: Response, next: NextFunction) {
+async function getSubjects(_req: Request, res: Response, next: NextFunction) {
   try {
     const result = await subjectsService.get();
     return res.status(HttpStatusCode.OK).send(result);
@@ -11,7 +11,7 @@ async function getSubjects(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function getSubjectsByPeriod(req: Request, res: Response, next: NextFunction) {
+async function getSubjectsByPeriod(_req: Request, res: Response, next: NextFunction) {
   try {
     const result = await subjectsService.getByPeriod();
     return res.status(HttpStatusCode.OK).send(result);
