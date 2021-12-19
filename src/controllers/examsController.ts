@@ -17,7 +17,17 @@ async function postExam(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function getExamById(req: Request, res: Response, next: NextFunction) {}
+async function getExamById(req: Request, res: Response, next: NextFunction) {
+  const examId = Number(req.params.examId);
+
+  try {
+    const result = await examsService.get(examId);
+    return res.status(HttpStatusCode.OK).send(result);
+  } catch (error) {
+    if (error instanceof NotFound) return res.status(HttpStatusCode.NOT_FOUND).send(error.message);
+    next(error);
+  }
+}
 
 export {
   postExam,

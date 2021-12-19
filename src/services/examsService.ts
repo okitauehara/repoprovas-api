@@ -67,6 +67,11 @@ async function post(exam: any) {
   return result;
 }
 
+async function get(examId: number) {
+
+}
+
 export {
   post,
+  get,
 };
