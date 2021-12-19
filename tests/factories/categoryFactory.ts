@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import faker from 'faker';
 import Categories from '../../src/entities/Categories';
 
-async function createCategory() {
+async function createCategory(): Promise<Categories> {
   const fakeCategory = getRepository(Categories).create({
     id: faker.datatype.number(),
     category: faker.lorem.word(),
