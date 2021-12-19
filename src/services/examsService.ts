@@ -11,7 +11,7 @@ import NotFound from '../errors/NotFound';
 import { Exam } from '../interfaces/Exam';
 import { examSchema } from '../schemas/examSchema';
 
-async function post(exam: any) {
+async function post(exam: Exam) {
   const {
     name,
     category,
@@ -68,7 +68,14 @@ async function post(exam: any) {
   return result;
 }
 
-async function getBySubject(subjectId: number) {
+async function getBySubject(subjectId: number): Promise<{
+    subject: string;
+    p1: Exams[];
+    p2: Exams[];
+    p3: Exams[];
+    second: Exams[];
+    others: Exams[];
+}> {
   const subject = await getRepository(Subjects).find({
     where: { id: subjectId },
   });
@@ -120,7 +127,14 @@ async function getBySubject(subjectId: number) {
   return result;
 }
 
-async function getByProfessor(professorId: number) {
+async function getByProfessor(professorId: number): Promise<{
+    professor: string;
+    p1: Exams[];
+    p2: Exams[];
+    p3: Exams[];
+    second: Exams[];
+    others: Exams[];
+}> {
   const professor = await getRepository(Professors).find({
     where: { id: professorId },
   });
