@@ -21,7 +21,7 @@ async function getExamBySubjectId(req: Request, res: Response, next: NextFunctio
   const subjectId = Number(req.params.subjectId);
 
   try {
-    const result = await examsService.get(subjectId);
+    const result = await examsService.getBySubject(subjectId);
     return res.status(HttpStatusCode.OK).send(result);
   } catch (error) {
     next(error);
@@ -32,7 +32,7 @@ async function getExamByProfessorId(req: Request, res: Response, next: NextFunct
   const professorId = Number(req.params.professorId);
 
   try {
-    const result = await examsService.get(professorId);
+    const result = await examsService.getByProfessor(professorId);
     return res.status(HttpStatusCode.OK).send(result);
   } catch (error) {
     next(error);

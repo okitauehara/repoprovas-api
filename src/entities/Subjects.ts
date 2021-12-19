@@ -34,6 +34,6 @@ export default class Subjects {
   })
     professors: Professors[];
 
-  @OneToMany(() => Exams, (exam) => exam.subject, { eager: true })
+  @OneToMany(() => Exams, (exam) => exam.subject)
     exams: Exams;
 }
