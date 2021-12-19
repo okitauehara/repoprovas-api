@@ -17,6 +17,9 @@ async function postExam(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function getExamById(req: Request, res: Response, next: NextFunction) {}
+
 export {
   postExam,
+  getExamById,
 };
